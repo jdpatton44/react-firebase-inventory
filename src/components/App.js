@@ -53,20 +53,24 @@ class App extends React.Component {
     // 1. Take a copy of the existing state
     const materials = [ ...this.state.materials ];
     // 2. Add our new material to that materials variable
-    materials[`material${Date.now()}`] = material;
+    materials.push(material)
     // 3. Set the new materials object to state
     this.setState({ materials });
   };
  
   addSegment = (segment) => {
     const segments = [ ...this.state.segments ]; 
-    segments[segment.name] = segment;
+    segments.push(segment);
     this.setState( { segments });
   };
 
   addMailing = (mailing) => {
     const mailings = [ ...this.state.mailings];
     mailings.push(mailing);
+    let materials = this.state.materials
+    const materialList = this.state.segments.filter(segment => segment.name === mailing.segment).map(segment => segment.materialList);
+    
+    console.log(materialList)
     this.setState( { mailings });
   }
 
