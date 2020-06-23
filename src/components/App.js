@@ -60,9 +60,20 @@ class App extends React.Component {
       this.setState( JSON.parse(localStorageRef) );
     }
   
-    this.ref = base.syncState(`${params.clientId}/`, {
+    base.syncState(`${params.clientId}/materials`, {
       context: this,
-      state: "clients"
+      state: 'materials',
+      asArray: true,
+    });
+    base.syncState(`${params.clientId}/segments`, {
+      context: this,
+      state: 'segments',
+      asArray: true,
+    });
+    base.syncState(`${params.clientId}/mailings`, {
+      context: this,
+      state: 'mailings',
+      asArray: true,
     });
   }
 
@@ -73,9 +84,9 @@ class App extends React.Component {
     )
   }
 
-  // componentWillUnmount() {
-  //   base.removeBinding(this.ref);
-  // }
+  componentWillUnmount() {
+    base.removeBinding(this.ref);
+  }
 
   render() {
     return (

@@ -21,7 +21,7 @@ class Segment extends React.Component {
                     <div className="card m-2 bg-light flex-fill flex-wrap" key={seg.name}>
                         <h4>{seg.name}</h4>
                         <ul>
-                            {seg.materialList.map(m => 
+                            {seg.materialList && seg.materialList.map(m => 
                                 <li key={m} >{m} - {this.findMaterialName(m)}</li>)}
                         </ul>
                     </ div>
