@@ -11,7 +11,34 @@ class App extends React.Component {
     segments: [],
     materials: [],
     mailings: [],
+    showInventory: true,
+    showPackages: false,
+    showMailings: false,
   };
+
+  setNavSelection = navRef => {
+    if (navRef  === 'inventory') {
+      this.setState( {
+        showInventory: true,
+        showMailings: false,
+        showPackages: false,
+      })
+    }
+    else if (navRef === 'packages') {
+      this.setState( {
+        showInventory: false,
+        showMailings: false,
+        showPackages: true,
+      })
+    }
+    else {
+      this.setState( {
+        showInventory: false,
+        showMailings: true,
+        showPackages: false,
+      })
+    }
+  }
 
   addMaterial = material => {
     // 1. Take a copy of the existing state
@@ -21,6 +48,15 @@ class App extends React.Component {
     // 3. Set the new materials object to state
     this.setState({ materials });
   };
+
+  removeMaterial = materialToDelete => {
+    const materials = [ ...this.state.materials ];
+    const index = materials.findIndex(m => m.finaleNumber === materialToDelete);
+    if (index > -1) {
+      materials.splice(index, 1);
+    }
+    this.setState( {materials} );
+  }
  
   addSegment = (segment) => {
     const segments = [ ...this.state.segments ]; 
@@ -92,23 +128,29 @@ class App extends React.Component {
     return (
       <div className="container">
         <Navbar 
+          setNavSelection = {this.setNavSelection}
           clientId = {this.props.match.params.clientId}
+          showInventory = {this.state.showInventory}
+          showPackages = {this.state.showPackages}
+          showMailings = {this.state.showMailings}
         />
-          <Inventory
+          {this.state.showInventory && <Inventory
             materials = {this.state.materials}
             addMaterial = {this.addMaterial}
-            />
-          <Segments 
+            addMaterial = {this.updateMaterial}
+            removeMaterial = {this.removeMaterial}
+            />}
+          {this.state.showPackages && <Segments 
             materials = {this.state.materials}
             segments = {this.state.segments}
             addSegment = {this.addSegment}
-          />
-          <Mailings
+          />}
+          {this.state.showMailings && <Mailings
             materials = {this.state.materials}
             segments = {this.state.segments}
             mailings = {this.state.mailings}
             addMailing = {this.addMailing}
-          />
+          />}
       </div>
     );
   }

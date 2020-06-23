@@ -3,7 +3,6 @@ import AddMaterialForm from './AddMaterialForm';
 
 class Inventory extends React.Component {
 
-
     render() {
         return(
             <div>
@@ -14,6 +13,7 @@ class Inventory extends React.Component {
                             <th>Finale #</th>
                             <th>Description</th>
                             <th>Quantity</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -22,6 +22,10 @@ class Inventory extends React.Component {
                                 <td>{m.finaleNumber}</td>
                                 <td>{m.name}</td>
                                 <td>{m.quantity.toLocaleString()}</td>
+                                <td>
+                                    <button onClick={() => this.props.updateMaterial(m.finaleNumber)}>➕</button>
+                                    <button onClick={() => this.props.removeMaterial(m.finaleNumber)}>❌</button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
