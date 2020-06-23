@@ -12,7 +12,7 @@ class AddMaterialForm extends React.Component {
         event.preventDefault();
         const material = {
           name: this.nameRef.current.value,
-          quantity: this.quantityRef.current.value,
+          quantity: parseInt(this.quantityRef.current.value),
           finaleNumber: this.finaleNumberRef.current.value,
           // image: this.imageRef.current.value
         };
@@ -23,41 +23,44 @@ class AddMaterialForm extends React.Component {
 
     render() { 
         return(
-            <form className="col-md-6" onSubmit={this.createMaterial}>
-                <fieldset>
-                    <label htmlFor="name">Material Name</label>
-                    <input 
-                        className="form-control"
-                        name="name" 
-                        ref={this.nameRef} 
-                        type="text" 
-                        placeholder="Name" 
-                    />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="finaleNumber">Finale #</label>
-                    <input 
-                        className="form-control"
-                        name="finaleNumber" 
-                        ref={this.finaleNumberRef} 
-                        type="text" 
-                        placeholder="Finale #" 
-                    />
-                </fieldset>
-                <fieldset>
-                    <label htmlFor="quantity">Quantity in Stock</label>
-                    <input 
-                        className="form-control"
-                        name="quantity" 
-                        ref={this.quantityRef} 
-                        type="number" 
-                        placeholder="Quantity" 
-                    />
-                </fieldset>
-                <fieldset className="pt-3">
-                    <button className="btn btn-success" type="submit">+ Add Material</button>   
-                </fieldset>
-            </form>
+            <>
+                <h5>Create a New Material</h5>
+                <form className="col-md-6" onSubmit={this.createMaterial}>
+                    <fieldset>
+                        <label htmlFor="name">Material Name</label>
+                        <input 
+                            className="form-control"
+                            name="name" 
+                            ref={this.nameRef} 
+                            type="text" 
+                            placeholder="Name" 
+                        />
+                    </fieldset>
+                    <fieldset>
+                        <label htmlFor="finaleNumber">Finale #</label>
+                        <input 
+                            className="form-control"
+                            name="finaleNumber" 
+                            ref={this.finaleNumberRef} 
+                            type="text" 
+                            placeholder="Finale #" 
+                        />
+                    </fieldset>
+                    <fieldset>
+                        <label htmlFor="quantity">Quantity in Stock</label>
+                        <input 
+                            className="form-control"
+                            name="quantity" 
+                            ref={this.quantityRef} 
+                            type="number" 
+                            placeholder="Quantity" 
+                        />
+                    </fieldset>
+                    <fieldset className="pt-3">
+                        <button className="btn btn-success" type="submit">+ Add Material</button>   
+                    </fieldset>
+                </form>
+            </>
         )
     }
 }

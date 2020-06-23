@@ -22,7 +22,7 @@ class Segment extends React.Component {
                         <h4>{seg.name}</h4>
                         <ul>
                             {seg.materialList.map(m => 
-                            <li>{m} - {this.findMaterialName(m)}</li>)}
+                                <li key={m} >{m} - {this.findMaterialName(m)}</li>)}
                         </ul>
                     </ div>
                 ))}

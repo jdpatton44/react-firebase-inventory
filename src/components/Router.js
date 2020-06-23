@@ -13,6 +13,7 @@ const Router = () => (
       <Route exact path="/" component={ClientPicker} />
       <Route path="/client/:clientId/Inventory" component={App} />
       <Route path="/client/:clientId/Mailings" component={Mailings} />
+      <Route path="/client/:clientId/Packages" component={Segment} />
       <Route component={NotFound} />
     </Switch>
   </BrowserRouter>

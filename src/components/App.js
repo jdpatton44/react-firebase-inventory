@@ -1,51 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Header from "./Header";
 import Mailings from "./Mailings";
 import Inventory from "./Inventory";
 import Navbar from "./Navbar";
-//import Material from "./Material";
 import Segments from "./Segment";
 import base from "../base";
 
 class App extends React.Component {
   state = {
-    segments: [ 
-      {
-        name: '6A6B',
-        materialList: [1,1,1]
-      },
-    {
-      name: '6C6D',
-      materialList: [2,2,2]
-    } 
-  ],
-    materials: [
-        {
-          name: "#10 window Important Information About Your Monthly Gift",
-          image: "/images/MSF-1.jpg",
-          quantity: 9719,
-          finaleNumber: 10426
-        },
-        {
-          name: "#10 window Your Gift Receipt Enclosed",
-          image: "/images/MSF-2.jpg",
-          quantity: 28051,
-          finaleNumber: 10223,
-        },
-        {
-          name: "#10 window Important Information About Your Monthly Gift",
-          image: "/images/MSF-3.jpg",
-          quantity: 9719,
-          finaleNumber: 15000,
-        },
-        {
-          name: "#10 window Important Information About Your Monthly Gift",
-          image: "/images/MSF-4.jpg",
-          quantity: 267000,
-          finaleNumber: 13382
-        },
-      ],
+    segments: [],
+    materials: [],
     mailings: [],
   };
 
@@ -64,44 +28,50 @@ class App extends React.Component {
     this.setState( { segments });
   };
 
+  updateMaterial = (materialInput, quantity) => {
+    const materials = [ ...this.state.materials ];
+    const index = materials.findIndex(m => m.finaleNumber === materialInput);
+    console.log(index);
+    let materialToUpdate = materials.filter(m => m.finaleNumber === materialInput)[0];
+    if (index > -1) {
+      materials.splice(index, 1);
+    }
+    console.log(materialToUpdate)
+    materialToUpdate.quantity -= quantity;
+    console.log(materialToUpdate.quantity)
+    materials.push(materialToUpdate);
+    this.setState( {materials} )
+  }
+
   addMailing = (mailing) => {
     const mailings = [ ...this.state.mailings];
     mailings.push(mailing);
-    let materials = this.state.materials
     const materialList = this.state.segments.filter(segment => segment.name === mailing.segment).map(segment => segment.materialList);
-    
-    console.log(materialList)
+    materialList[0].map(m => this.updateMaterial(m, mailing.quantity));
     this.setState( { mailings });
   }
 
-  // componentDidMount() {
-  //   const { params } = this.props.match;
+  componentDidMount() {
+    const { params } = this.props.match;
 
-  //   // first reinstate our localStorage
-  //   const localStorageRef = localStorage.getItem(params.clientId);
-  //   if (localStorageRef) {
-  //     this.setState({ materials: JSON.parse(localStorageRef) });
-  //   }
+    // first reinstate our localStorage
+    const localStorageRef = localStorage.getItem(params.clientId);
+    if (typeof(localStorageRef) !== 'undefined') {
+      this.setState( JSON.parse(localStorageRef) );
+    }
   
-  //   this.ref = base.syncState(`${params.clientId}/clients`, {
-  //     context: this,
-  //     state: "clients"
-  //   });
-  // }
+    this.ref = base.syncState(`${params.clientId}/`, {
+      context: this,
+      state: "clients"
+    });
+  }
 
   componentDidUpdate() {
     localStorage.setItem(
-      `${this.props.match.params.clientId}`,
+      this.props.match.params.clientId,
       JSON.stringify(this.state)
-    );
+    )
   }
-
-  // componentDidUpdate() {
-  //   localStorage.setItem(
-  //     this.props.match.params.clientId,
-  //     JSON.stringify(this.state.order)
-  //   );
-  // }
 
   // componentWillUnmount() {
   //   base.removeBinding(this.ref);
@@ -109,8 +79,10 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="catch-of-the-day">
-        <Navbar />
+      <div className="container">
+        <Navbar 
+          clientId = {this.props.match.params.clientId}
+        />
           <Inventory
             materials = {this.state.materials}
             addMaterial = {this.addMaterial}

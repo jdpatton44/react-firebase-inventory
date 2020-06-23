@@ -25,7 +25,7 @@ class AddSegmentForm extends React.Component {
     render() {
         return (
             <>
-                <h3>Add a Package</h3>
+                <h5>Create a New Package</h5>
                 <form className="col-md-6" onSubmit={this.createSegment}>
                     <fieldset>
                         <label htmlFor="name">Segment Name</label>
@@ -42,9 +42,11 @@ class AddSegmentForm extends React.Component {
                         {Object.keys(this.props.materials).map((key) => (
                             <fieldset key={key}>
                                 <input 
+                                    className="mx-1"
                                     name={this.props.materials[key].finaleNumber}  
                                     type="checkbox" 
                                     value={this.props.materials[key].finaleNumber} 
+                                    id={this.props.materials[key].finaleNumber} 
                                     ref={this.materialsListRef[key]} 
                                 /> 
                                 <label htmlFor={`${this.props.materials[key].finaleNumber}`} >  {this.props.materials[key].finaleNumber} - {this.props.materials[key].name} </ label>
