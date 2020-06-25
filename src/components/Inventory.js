@@ -2,6 +2,14 @@ import React from 'react';
 import AddMaterialForm from './AddMaterialForm';
 
 class Inventory extends React.Component {
+    state = {
+        show: false
+      };
+      showModal = e => {
+        this.setState({
+          show: !this.state.show
+        });
+      };
 
     render() {
         return(
@@ -22,15 +30,21 @@ class Inventory extends React.Component {
                                 <td>{m.finaleNumber}</td>
                                 <td>{m.name}</td>
                                 <td>{m.quantity.toLocaleString()}</td>
-                                <td>
-                                    <button onClick={() => this.props.updateMaterial(m.finaleNumber)}>➕</button>
-                                    <button onClick={() => this.props.removeMaterial(m.finaleNumber)}>❌</button>
+                                <td className="d-flex justify-content-around">
+                                    <button onClick={() => {this.props.setEditingMaterialFlag(m.finaleNumber)}}>✍</button>
+                                    <button onClick={() => {if(window.confirm('Are you sure?')){this.props.removeMaterial(m.finaleNumber)};}}>❌</button>
                                 </td>
                             </tr>
+                            
                         ))}
                     </tbody>
                 </table>
-                <AddMaterialForm addMaterial={this.props.addMaterial} />
+                <AddMaterialForm 
+                    addMaterial={this.props.addMaterial} 
+                    editingMaterialFlag = {this.props.editingMaterialFlag} 
+                    updateMaterial = {this.props.updateMaterial}
+                    stopEditing = {this.props.stopEditing}
+                    materials={this.props.materials}/>
             </div>
         )
     }

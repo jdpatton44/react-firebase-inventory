@@ -19,13 +19,33 @@ class AddMaterialForm extends React.Component {
         this.props.addMaterial(material);
         // refresh the form
         event.currentTarget.reset();
-      };
+    };
+    
+    editMaterial = event => {
+        event.preventDefault();
+        const material = {
+          name: this.nameRef.current.value,
+          quantity: parseInt(this.quantityRef.current.value),
+          finaleNumber: this.finaleNumberRef.current.value,
+          // image: this.imageRef.current.value
+        };
+        this.props.updateMaterial(material);
+        // refresh the form
+        event.currentTarget.reset();
+    };
+
+    handleCancelClick = event => {
+        event.preventDefault();
+        this.props.stopEditing()
+    }
 
     render() { 
+        const editingMaterialFlag = this.props.editingMaterialFlag;
+        const materialToUpdate = editingMaterialFlag ? this.props.materials.filter(m => m.finaleNumber === editingMaterialFlag)[0] : '';
         return(
             <>
-                <h5>Create a New Material</h5>
-                <form className="col-md-6" onSubmit={this.createMaterial}>
+                <h5>{editingMaterialFlag ? `update Material #${materialToUpdate.finaleNumber}` : 'Create a New Material'}</h5>
+                <form className="col-md-6" onSubmit={this.props.editingMaterialFlag ? this.editMaterial : this.createMaterial}>
                     <fieldset>
                         <label htmlFor="name">Material Name</label>
                         <input 
@@ -34,6 +54,7 @@ class AddMaterialForm extends React.Component {
                             ref={this.nameRef} 
                             type="text" 
                             placeholder="Name" 
+                            defaultValue={editingMaterialFlag ? `${materialToUpdate.name}` : ''}
                         />
                     </fieldset>
                     <fieldset>
@@ -44,6 +65,8 @@ class AddMaterialForm extends React.Component {
                             ref={this.finaleNumberRef} 
                             type="text" 
                             placeholder="Finale #" 
+                            disabled={editingMaterialFlag}
+                            defaultValue={editingMaterialFlag ? `${materialToUpdate.finaleNumber}` : ''}
                         />
                     </fieldset>
                     <fieldset>
@@ -54,10 +77,12 @@ class AddMaterialForm extends React.Component {
                             ref={this.quantityRef} 
                             type="number" 
                             placeholder="Quantity" 
+                            defaultValue={editingMaterialFlag ? `${materialToUpdate.quantity}` : ''}
                         />
                     </fieldset>
-                    <fieldset className="pt-3">
-                        <button className="btn btn-success" type="submit">+ Add Material</button>   
+                    <fieldset className="pt-3 d-flex justify-content-between">
+                        <button className="btn btn-success" type="submit">{editingMaterialFlag ? `update #${materialToUpdate.finaleNumber}` : '+ Add Material'}</button>
+                        {editingMaterialFlag ? <button className="btn btn-danger" onClick={this.handleCancelClick}>Cancel Edit</button> : ''}   
                     </fieldset>
                 </form>
             </>
