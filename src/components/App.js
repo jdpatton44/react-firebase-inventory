@@ -3,7 +3,9 @@ import Mailings from "./Mailings";
 import Inventory from "./Inventory";
 import Navbar from "./Navbar";
 import Segments from "./Segment";
-import base from "../base";
+import Login from "./Login";
+import firebase from "firebase";
+import base, { firebaseApp } from "../base";
 
 class App extends React.Component {
   state = {
@@ -14,6 +16,8 @@ class App extends React.Component {
     showPackages: false,
     showMailings: false,
     editingMaterialFlag: '',
+    uid: null,
+    owner: null
     };
   
     setNavSelection = navRef => {
@@ -40,6 +44,37 @@ class App extends React.Component {
     }
   }
 
+  authHandler = async authData => {
+    // 1 .Look up the current store in the firebase database
+    const { params } = this.props.match;
+    const client = await base.fetch(params.clientId, { context: this });
+    // 2. Claim it if there is no owner
+    if (!client.owner) {
+      // save it as our own
+      await base.post(`${params.clientId}/owner`, {
+        data: authData.user.uid
+      });
+    }
+    // 3. Set the state of the inventory component to reflect the current user
+    this.setState({
+      uid: authData.user.uid,
+      owner: client.owner || authData.user.uid
+    });
+  };
+
+  authenticate = provider => {
+    const authProvider = new firebase.auth[`${provider}AuthProvider`]();
+    firebaseApp
+      .auth()
+      .signInWithPopup(authProvider)
+      .then(this.authHandler);
+  };
+
+  logout = async () => {
+    console.log("Logging out!");
+    await firebase.auth().signOut();
+    this.setState({ uid: null });
+  };
 
   // add a new material to state 
   addMaterial = (material) => {
@@ -150,6 +185,11 @@ class App extends React.Component {
     }
   
   componentDidMount() {
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          this.authHandler({ user });
+        }
+      });
       // get the params from react router
       const { params } = this.props.match;
   
@@ -193,6 +233,23 @@ class App extends React.Component {
     }
 
   render() {
+    const logout = <button onClick={this.logout}>Log Out!</button>;
+
+    // 1. Check if they are logged in
+    if (!this.state.uid) {
+      return <Login authenticate={this.authenticate} />;
+    }
+
+    // 2. check if they are not the owner of the store
+    if (this.state.uid !== this.state.owner) {
+      return (
+        <div>
+          <p>Sorry you are not the able to access this!</p>
+          {logout}
+        </div>
+      );
+    }
+    // 3. The owner can access the client
     return (
         <div className={this.state.theme}>
           <div className="container">
