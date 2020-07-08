@@ -16,12 +16,13 @@ class Segment extends React.Component {
         return(
             <div>
                 <h3>Packages</h3>
-                <div className="container d-flex justify-content-center flex-wrap">
+                <AddSegmentForm addSegment={this.props.addSegment} materials={this.props.materials} />
+                <div className="container d-flex flex-wrap">
                     {this.props.segments.map((seg) => (
-                    <div className="card m-2 bg-light flex-fill" key={seg.name}>
+                    <div className="card m-2 bg-light col-8" key={seg.name}>
                         <div className="d-flex flex-row">
                             <h4 className="m-2 w-50">{seg.name}</h4>
-                            <button onClick={() => {if(window.confirm('Are you sure?')){this.props.removeSegment(seg.name)};}} className="w-20 btn btn-clear ml-auto">❌</button>
+                            <button onClick={() => {if(window.confirm('Are you sure you want to delete this package???')){this.props.removeSegment(seg.name)};}} className="w-20 btn btn-clear ml-auto">❌</button>
                         </div>
                         <ul>
                             {seg.materialList && seg.materialList.map(m => 
@@ -30,7 +31,7 @@ class Segment extends React.Component {
                     </ div>
                 ))}
                 </div>
-                <AddSegmentForm addSegment={this.props.addSegment} materials={this.props.materials} />
+                
             </div>
         )
     }

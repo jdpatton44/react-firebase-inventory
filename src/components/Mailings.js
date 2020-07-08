@@ -7,7 +7,8 @@ class Mailings extends React.Component {
         return(
             <div>
                 <h3>Mailings</h3>
-                <table className="table  table-striped table-hover table-bordered">
+                <AddMailing segments={this.props.segments} addMailing={this.props.addMailing}/>
+                <table className="table  table-striped table-hover table-bordered mt-4">
                     <thead>
                         <tr>
                             <th>Mail Date</th>
@@ -25,7 +26,7 @@ class Mailings extends React.Component {
                         ))}
                     </tbody>
                 </table>
-                <AddMailing segments={this.props.segments} addMailing={this.props.addMailing}/>
+                
             </div>
         )
     }

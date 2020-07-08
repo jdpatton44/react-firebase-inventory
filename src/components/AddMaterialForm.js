@@ -45,7 +45,7 @@ class AddMaterialForm extends React.Component {
         return(
             <>
                 <h5>{editingMaterialFlag ? `update Material #${materialToUpdate.finaleNumber}` : 'Create a New Material'}</h5>
-                <form className="col-md-6" onSubmit={this.props.editingMaterialFlag ? this.editMaterial : this.createMaterial}>
+                <form className="col-md-8" onSubmit={this.props.editingMaterialFlag ? this.editMaterial : this.createMaterial}>
                     <fieldset>
                         <label htmlFor="name">Material Name</label>
                         <input 
@@ -80,9 +80,9 @@ class AddMaterialForm extends React.Component {
                             defaultValue={editingMaterialFlag ? `${materialToUpdate.quantity}` : ''}
                         />
                     </fieldset>
-                    <fieldset className="pt-3 d-flex justify-content-between">
+                    <fieldset className="mt-4">
                         <button className="btn btn-success" type="submit">{editingMaterialFlag ? `update #${materialToUpdate.finaleNumber}` : '+ Add Material'}</button>
-                        {editingMaterialFlag ? <button className="btn btn-danger" onClick={this.handleCancelClick}>Cancel Edit</button> : ''}   
+                        {editingMaterialFlag ? <button className="ml-4 btn btn-danger" onClick={this.handleCancelClick}>Cancel Edit</button> : ''}   
                     </fieldset>
                 </form>
             </>

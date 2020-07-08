@@ -1,5 +1,6 @@
 import React from 'react';
 import AddMaterialForm from './AddMaterialForm';
+import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 
 class Inventory extends React.Component {
     state = {
@@ -31,8 +32,12 @@ class Inventory extends React.Component {
                                 <td>{m.name}</td>
                                 <td>{m.quantity.toLocaleString()}</td>
                                 <td className="d-flex justify-content-around">
-                                    <button onClick={() => {this.props.setEditingMaterialFlag(m.finaleNumber)}}>✍</button>
-                                    <button onClick={() => {if(window.confirm('Are you sure?')){this.props.removeMaterial(m.finaleNumber)};}}>❌</button>
+                                    <button onClick={() => {this.props.setEditingMaterialFlag(m.finaleNumber)}}>
+                                        <FaPencilAlt className="m-1" color="#b8b800" size={20} />
+                                    </button>
+                                    <button onClick={() => {if(window.confirm('Are you sure?')){this.props.removeMaterial(m.finaleNumber)};}}>
+                                        <FaTrashAlt className="m-1" color="#6f7467" size={20} />
+                                    </button>
                                 </td>
                             </tr>
                             
