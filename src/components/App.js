@@ -6,6 +6,7 @@ import Segments from "./Segment";
 import Login from "./Login";
 import firebase from "firebase";
 import base, { firebaseApp } from "../base";
+import '../index.css'
 
 class App extends React.Component {
   state = {

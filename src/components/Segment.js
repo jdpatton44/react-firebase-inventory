@@ -15,7 +15,7 @@ class Segment extends React.Component {
     render() {
         return(
             <div>
-                <h3>Packages</h3>
+                <h2 className="cursive-heading">Packages</h2>
                 <AddSegmentForm addSegment={this.props.addSegment} materials={this.props.materials} />
                 <div className="container d-flex flex-wrap">
                     {this.props.segments.map((seg) => (

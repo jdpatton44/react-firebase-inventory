@@ -15,7 +15,7 @@ class Inventory extends React.Component {
     render() {
         return(
             <div>
-                <h3>Inventory</h3>
+                <h2 className="cursive-heading">Inventory</h2>
                 <table className="table  table-striped table-hover table-bordered">
                     <thead className="">
                         <tr>

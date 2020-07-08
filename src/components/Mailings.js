@@ -1,12 +1,13 @@
 import React from 'react'
 import AddMailing from './AddMailing'
 
+
 class Mailings extends React.Component {
 
     render() {
         return(
             <div>
-                <h3>Mailings</h3>
+                <h2 className="cursive-heading">Mailings</h2>
                 <AddMailing segments={this.props.segments} addMailing={this.props.addMailing}/>
                 <table className="table  table-striped table-hover table-bordered mt-4">
                     <thead>
