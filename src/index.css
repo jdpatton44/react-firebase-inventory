@@ -61,5 +61,8 @@
   }
 
 .cursive-heading {
-  font-family: 'Yellowtail', cursive;
+  font-family: 'Pacifico', cursive;
+}
+.client-name {
+  font-family: 'Monoton', cursive;
 }

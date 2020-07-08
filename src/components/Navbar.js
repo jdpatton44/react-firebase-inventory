@@ -16,7 +16,7 @@ class Navbar extends React.Component {
             <nav >
                 <ul className="nav nav-tabs">
                     <li className="navbar-brand logo">
-                        <strong>{this.props.clientId}</strong>
+                        <span className="client-name">{this.props.clientId}</span>
                     </li>
                     <li className="nav-item">
                         <button onClick={this.handleInventoryClick} style={{fontSize: 24}} className="nav-link ml-2 mr-2 bg-white border" href="">
