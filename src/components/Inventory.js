@@ -35,7 +35,7 @@ class Inventory extends React.Component {
                                     <button onClick={() => {this.props.setEditingMaterialFlag(m.finaleNumber)}}>
                                         <FaPencilAlt className="m-1" color="#b8b800" size={20} />
                                     </button>
-                                    <button onClick={() => {if(window.confirm('Are you sure?')){this.props.removeMaterial(m.finaleNumber)};}}>
+                                    <button onClick={() => {if(window.confirm('Are you sure you want to remove this???')){this.props.removeMaterial(m.finaleNumber)};}}>
                                         <FaTrashAlt className="m-1" color="#6f7467" size={20} />
                                     </button>
                                 </td>
