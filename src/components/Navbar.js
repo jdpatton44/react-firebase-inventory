@@ -3,12 +3,15 @@ import React from 'react'
 class Navbar extends React.Component {
     handleInventoryClick = (event) => {
         this.props.setNavSelection('inventory')
+        this.props.stopEditing()
     }
     handlePackagesClick = (event) => {
         this.props.setNavSelection('packages')
+        this.props.stopEditing()
     }
     handleMailingsClick = (event) => {
         this.props.setNavSelection('mailings')
+        this.props.stopEditing()
     }
     
     render() {

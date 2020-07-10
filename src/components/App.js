@@ -17,6 +17,7 @@ class App extends React.Component {
     showPackages: false,
     showMailings: false,
     editingMaterialFlag: '',
+    editingSegmentFlag: '',
     uid: null,
     owner: null
     };
@@ -132,8 +133,13 @@ class App extends React.Component {
   setEditingMaterialFlag = (finaleNumber) => {
     this.setState( {editingMaterialFlag: finaleNumber} )
   }
+  setEditingSegmentFlag = (id) => {
+    this.setState( {editingSegmentFlag: id} )
+  }
+  
   stopEditing = () => {
     this.setState( { editingMaterialFlag: '' } );
+    this.setState( { editingSegmentFlag: '' } );
   }
   
   // update a materials by replacing it
@@ -151,6 +157,22 @@ class App extends React.Component {
     // set materials state with the updated array
     this.setState( {materials, editingMaterialFlag: ''}  )
   };
+
+  // update a segment by replacing it
+  updateSegment = (updatedSegment) => {
+    // get a copy of the segments in state 
+    const segments = [ ...this.state.segments ];
+    // find the index of the segment to update 
+    const index = segments.findIndex(s => s.id === updatedSegment.id);
+    // remove the segment to update from the segments array 
+    if (index > -1) {
+      segments.splice(index, 1);
+    }
+    // push the new segment on the segments array
+    segments.push(updatedSegment);
+    // set segments state with the updated array
+    this.setState( {segments, editingSegmentFlag: ''}  )
+  }
 
   // update a materials quantity by subtracting quantity
   updateMaterialQuantity = (materialInput, quantity) => {
@@ -262,6 +284,8 @@ class App extends React.Component {
               showInventory = {this.state.showInventory}
               showPackages = {this.state.showPackages}
               showMailings = {this.state.showMailings}
+              stopEditing = {this.stopEditing}
+              logout = {this.logout}
             />
               {this.state.showInventory && <Inventory
                 editingMaterialFlag = {this.state.editingMaterialFlag}
@@ -273,10 +297,14 @@ class App extends React.Component {
                 removeMaterial = {this.removeMaterial}
                 />}
               {this.state.showPackages && <Segments 
+                editingSegmentFlag = {this.state.editingSegmentFlag}
+                setEditingSegmentFlag = {this.setEditingSegmentFlag}
+                stopEditing = {this.stopEditing}
                 materials = {this.state.materials}
                 segments = {this.state.segments}
                 addSegment = {this.addSegment}
                 removeSegment = {this.removeSegment}
+                updateSegment = {this.updateSegment}
               />}
               {this.state.showMailings && <Mailings
                 materials = {this.state.materials}

@@ -79,10 +79,10 @@ class AddMaterialForm extends React.Component {
                             placeholder="Quantity" 
                             defaultValue={editingMaterialFlag ? `${materialToUpdate.quantity}` : ''}
                         />
-                    </fieldset>
-                    <fieldset className="mt-4">
-                        <button className="btn btn-success" type="submit">{editingMaterialFlag ? `update #${materialToUpdate.finaleNumber}` : '+ Add Material'}</button>
-                        {editingMaterialFlag ? <button className="ml-4 btn btn-danger" onClick={this.handleCancelClick}>Cancel Edit</button> : ''}   
+                        <div class="btn-group mt-4 mb-4">
+                            <button className="btn btn-success" type="submit">{editingMaterialFlag ? `update #${materialToUpdate.finaleNumber}` : '+ Add Material'}</button>
+                            {editingMaterialFlag ? <button className="ml-4 btn btn-danger" onClick={this.handleCancelClick}>Cancel Edit</button> : ''}   
+                        </div>
                     </fieldset>
                 </form>
             </>
