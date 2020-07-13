@@ -1,5 +1,6 @@
 import React from 'react';
-import AddSegmentForm from './AddSegmentForm';
+import AddPackageForm from './AddPackageForm';
+import EditPackageForm from './EditPackageForm';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
 
 class Segment extends React.Component {
@@ -17,13 +18,24 @@ class Segment extends React.Component {
         return(
             <div>
                 <h2 className="cursive-heading">Packages</h2>
-                <AddSegmentForm 
+                {this.props.editingSegmentFlag 
+                
+                ? <EditPackageForm 
                     addSegment={this.props.addSegment} 
                     materials={this.props.materials} 
                     editingSegmentFlag = {this.props.editingSegmentFlag}
                     segments={this.props.segments}
                     stopEditing = {this.props.stopEditing}
+                    updateSegment = {this.props.updateSegment}
                 />
+                : <AddPackageForm 
+                addSegment={this.props.addSegment} 
+                materials={this.props.materials} 
+                editingSegmentFlag = {this.props.editingSegmentFlag}
+                segments={this.props.segments}
+                stopEditing = {this.props.stopEditing}
+                updateSegment = {this.props.updateSegment}
+            />}
                 <div className="container d-flex flex-wrap">
                     {this.props.segments.map((seg) => (
                     <div className="card m-2 bg-light col-8" key={seg.name}>

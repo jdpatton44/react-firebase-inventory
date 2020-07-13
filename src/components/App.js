@@ -124,6 +124,7 @@ class App extends React.Component {
   // add a segment to state 
   addSegment = (segment) => {
       // get a copy of the segments in state 
+      console.log('adding a segment')
       const segments = [ ...this.state.segments ]; 
       // add the new segment to that array
       segments.push(segment);
@@ -251,9 +252,9 @@ class App extends React.Component {
     }
   
   // remove bindings
-  componentWillUnmount() {
-      base.removeBinding(this.ref);
-    }
+  // componentWillUnmount() {
+  //     base.removeBinding(this.ref);
+  //   }
 
   render() {
     const logout = <button onClick={this.logout}>Log Out!</button>;
@@ -303,8 +304,8 @@ class App extends React.Component {
                 materials = {this.state.materials}
                 segments = {this.state.segments}
                 addSegment = {this.addSegment}
-                removeSegment = {this.removeSegment}
                 updateSegment = {this.updateSegment}
+                removeSegment = {this.removeSegment}
               />}
               {this.state.showMailings && <Mailings
                 materials = {this.state.materials}

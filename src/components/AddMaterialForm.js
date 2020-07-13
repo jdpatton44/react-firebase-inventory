@@ -49,6 +49,7 @@ class AddMaterialForm extends React.Component {
                     <fieldset>
                         <label htmlFor="name">Material Name</label>
                         <input 
+                            required
                             className="form-control"
                             name="name" 
                             ref={this.nameRef} 
@@ -60,6 +61,7 @@ class AddMaterialForm extends React.Component {
                     <fieldset>
                         <label htmlFor="finaleNumber">Finale #</label>
                         <input 
+                            required
                             className="form-control"
                             name="finaleNumber" 
                             ref={this.finaleNumberRef} 
@@ -72,6 +74,7 @@ class AddMaterialForm extends React.Component {
                     <fieldset>
                         <label htmlFor="quantity">Quantity in Stock</label>
                         <input 
+                            required
                             className="form-control"
                             name="quantity" 
                             ref={this.quantityRef} 
