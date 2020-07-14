@@ -2,6 +2,7 @@ import React from 'react';
 import AddPackageForm from './AddPackageForm';
 import EditPackageForm from './EditPackageForm';
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import Tooltip from './Tooltip'
 
 class Segment extends React.Component {
     findMaterialName = (finaleNumber) => {
@@ -42,10 +43,14 @@ class Segment extends React.Component {
                         <div className="d-flex flex-row">
                             <h4 className="m-2 w-50">{seg.name}</h4>
                             <button onClick={() => {if(window.confirm('Are you sure you want to delete this package???')){this.props.removeSegment(seg.name)};}} className="w-20 btn btn-clear ml-auto">
-                                <FaTrashAlt className="m-1" color="#b8b800" size={20} />
+                                <Tooltip text="Delete Package">
+                                    <FaTrashAlt className="m-1" color="#b8b800" size={20} />
+                                </Tooltip>
                             </button>
                             <button onClick={() => {this.props.setEditingSegmentFlag(seg.id)}} className="w-20 btn btn-clear ml-auto">
-                                <FaPencilAlt className="m-1" color="#b8b800" size={20} />
+                                <Tooltip text="Edit Package">
+                                    <FaPencilAlt className="m-1" color="#b8b800" size={20} />
+                                </Tooltip>
                             </button>
                         </div>
                         <ul>
