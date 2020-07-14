@@ -18,6 +18,7 @@ class App extends React.Component {
     showMailings: false,
     editingMaterialFlag: '',
     editingSegmentFlag: '',
+    changeQuantityFlag: '',
     uid: null,
     owner: null
     };
@@ -137,9 +138,14 @@ class App extends React.Component {
   setEditingSegmentFlag = (id) => {
     this.setState( {editingSegmentFlag: id} )
   }
+  setChangeQuantityFlag = (id) => {
+    console.log(id)
+    this.setState( { changeQuantityFlag: id} )
+  }
   
   stopEditing = () => {
     this.setState( { editingMaterialFlag: '' } );
+    this.setState( { changeQuantityFlag: '' } );
     this.setState( { editingSegmentFlag: '' } );
   }
   
@@ -291,6 +297,8 @@ class App extends React.Component {
               {this.state.showInventory && <Inventory
                 editingMaterialFlag = {this.state.editingMaterialFlag}
                 setEditingMaterialFlag = {this.setEditingMaterialFlag}
+                changeQuantityFlag = {this.state.changeQuantityFlag}
+                setChangeQuantityFlag = {this.setChangeQuantityFlag}
                 stopEditing = {this.stopEditing}
                 materials = {this.state.materials}
                 addMaterial = {this.addMaterial}

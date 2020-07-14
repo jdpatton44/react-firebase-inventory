@@ -1,16 +1,10 @@
 import React from 'react';
 import AddMaterialForm from './AddMaterialForm';
-import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa';
+import ChangeQuantityForm from './ChangeQuantityForm';
+
+import { FaPencilAlt, FaTrashAlt, FaRegPlusSquare } from 'react-icons/fa';
 
 class Inventory extends React.Component {
-    state = {
-        show: false
-      };
-      showModal = e => {
-        this.setState({
-          show: !this.state.show
-        });
-      };
 
     render() {
         return(
@@ -35,21 +29,34 @@ class Inventory extends React.Component {
                                     <button onClick={() => {this.props.setEditingMaterialFlag(m.finaleNumber)}}>
                                         <FaPencilAlt className="m-1" color="#b8b800" size={20} />
                                     </button>
+                                    <button onClick={() => {this.props.setChangeQuantityFlag(m.finaleNumber)}}>
+                                        <FaRegPlusSquare className="m-1" color="#8B0000" size={20} />
+                                    </button>
                                     <button onClick={() => {if(window.confirm('Are you sure you want to remove this???')){this.props.removeMaterial(m.finaleNumber)};}}>
                                         <FaTrashAlt className="m-1" color="#6f7467" size={20} />
                                     </button>
+
                                 </td>
                             </tr>
                             
                         ))}
                     </tbody>
                 </table>
-                <AddMaterialForm 
+                {this.props.changeQuantityFlag 
+                ? <ChangeQuantityForm 
+                addMaterial={this.props.addMaterial} 
+                changeQuantityFlag = {this.props.changeQuantityFlag} 
+                updateMaterial = {this.props.updateMaterial}
+                stopEditing = {this.props.stopEditing}
+                materials={this.props.materials}/> 
+                : <AddMaterialForm 
                     addMaterial={this.props.addMaterial} 
                     editingMaterialFlag = {this.props.editingMaterialFlag} 
                     updateMaterial = {this.props.updateMaterial}
                     stopEditing = {this.props.stopEditing}
                     materials={this.props.materials}/>
+                
+                }
             </div>
         )
     }
