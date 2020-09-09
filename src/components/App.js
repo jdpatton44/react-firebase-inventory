@@ -199,7 +199,6 @@ class App extends React.Component {
         // set materials state with the updated array
         this.setState( {materials} )
     };
-  
   // add a new mailing to state 
   addMailing = (mailing) => {
       // get a copy of the existing mailings in state 
@@ -303,6 +302,7 @@ class App extends React.Component {
                 materials = {this.state.materials}
                 addMaterial = {this.addMaterial}
                 updateMaterial = {this.updateMaterial}
+                updateMaterialQuantity = {this.updateMaterialQuantity}
                 removeMaterial = {this.removeMaterial}
                 />}
               {this.state.showPackages && <Segments 

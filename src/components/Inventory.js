@@ -54,6 +54,7 @@ class Inventory extends React.Component {
                 addMaterial={this.props.addMaterial} 
                 changeQuantityFlag = {this.props.changeQuantityFlag} 
                 updateMaterial = {this.props.updateMaterial}
+                updateMaterialQuantity = {this.props.updateMaterialQuantity}
                 stopEditing = {this.props.stopEditing}
                 materials={this.props.materials}/> 
                 : <AddMaterialForm 
