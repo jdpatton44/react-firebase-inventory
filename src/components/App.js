@@ -133,13 +133,18 @@ class App extends React.Component {
       this.setState( { segments });
     };
   setEditingMaterialFlag = (finaleNumber) => {
+    this.setState( { changeQuantityFlag: '' } );
+    this.setState( { editingSegmentFlag: '' } );
     this.setState( {editingMaterialFlag: finaleNumber} )
   }
   setEditingSegmentFlag = (id) => {
+    this.setState( { editingMaterialFlag: '' } );
+    this.setState( { changeQuantityFlag: '' } );
     this.setState( {editingSegmentFlag: id} )
   }
   setChangeQuantityFlag = (id) => {
-    console.log(id)
+    this.setState( { editingMaterialFlag: '' } );
+    this.setState( { editingSegmentFlag: '' } );
     this.setState( { changeQuantityFlag: id} )
   }
   
