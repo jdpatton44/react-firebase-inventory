@@ -217,6 +217,23 @@ class App extends React.Component {
       // set state to the updated mailings array
       this.setState( { mailings });
     }
+
+  // remove the mailing and add the stock back to inventory
+  removeMailing = (key) => {
+    // get a copy of the existing mailings in state 
+    const currentMailings = [ ...this.state.mailings];
+    console.table(currentMailings);
+    // get the mailing to remove
+    const mailingToRemove = currentMailings.filter(m => key.toString() === m.key)[0];
+    //get the list of materials from that mailing 
+    const materialList = this.state.segments.filter(segment => mailingToRemove.segment === segment.name).map(segment => segment.materialList)[0];
+    // add the stock back for each material based on the mailing quantity
+    materialList.map(material => this.updateMaterialQuantity(material, -mailingToRemove.quantity));
+    // make a new list of mailings without the mailing being removed 
+    const mailings = currentMailings.filter(m => key.toString() !== m.key);
+    // update state to be the new list of mailings 
+    this.setState( {mailings} );
+  }
   
   componentDidMount() {
       firebase.auth().onAuthStateChanged(user => {
@@ -325,6 +342,7 @@ class App extends React.Component {
                 segments = {this.state.segments}
                 mailings = {this.state.mailings}
                 addMailing = {this.addMailing}
+                removeMailing = {this.removeMailing}
               />}
           </div>
         </div>

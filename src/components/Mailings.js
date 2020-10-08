@@ -1,6 +1,7 @@
 import React from 'react'
 import AddMailing from './AddMailing'
-
+import Tooltip from './Tooltip'
+import { FaTrashAlt} from 'react-icons/fa';
 
 class Mailings extends React.Component {
 
@@ -23,6 +24,13 @@ class Mailings extends React.Component {
                                 <td>{mailing.date}</td>
                                 <td>{mailing.segment}</td>
                                 <td>{mailing.quantity.toLocaleString()}</td>
+                                <td>
+                                    <button onClick={() => {if(window.confirm('Are you sure you want to remove this mailing???')){this.props.removeMailing(i)};}}>
+                                        <Tooltip text="Delete Mailing and add stock back to Inventory.">
+                                            <FaTrashAlt className="m-1" color="#6f7467" size={20} />
+                                        </Tooltip>
+                                    </button>
+                                </td>
                             </tr>
                         ))}
                     </tbody>
