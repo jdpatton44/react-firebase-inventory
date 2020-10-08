@@ -28,6 +28,7 @@ class AddMailingForm extends React.Component {
                     <fieldset>
                         <label htmlFor="name">Mail Date</label>
                         <input 
+                            required
                             className="form-control"
                             name="date" 
                             ref={this.dateRef} 
